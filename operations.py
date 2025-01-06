@@ -1,26 +1,34 @@
-class Operations():
+from comparable import Comparable
+
+class Operations(Comparable): 
     def __init__(self, value):
-        self._value = value
+        self.value = value 
     
     def __add__(self, other):
-        return self._value + other._value  
+        return Operations(self.value + other.value)  
     
     def __sub__(self, other):
-        return self._value - other._value
+        return Operations(self.value - other.value)
     
     def __mul__(self, other):
-        return self._value * other._value
+        return Operations(self.value * other.value)
     
     def __truediv__(self, other):
-        return self._value / other._value
+        if other.value == 0:
+            raise ValueError("Cannot divide by zero")
+        return Operations(self.value / other.value)
     
     def __floordiv__(self, other):
-        return self._value // other._value
+        return Operations(self.value // other.value)
     
     def __mod__(self, other):
-        return self._value % other._value
+        return Operations(self.value % other.value)
     
     def __pow__(self, other):
-        return self._value ** other._value
+        return Operations(self.value ** other.value)
+
+    def __str__(self):
+        return str(self.value)
     
-    
+    def __repr__(self):
+        return str(self.value)
