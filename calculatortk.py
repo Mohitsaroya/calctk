@@ -12,7 +12,7 @@ class Calculatortk():
         self.buttons = self.buttons_on_display()
         
     def display_screen(self):
-        screen = Entry(self.root, font=("Courier New", 24), width=18, borderwidth=0.5, justify=RIGHT, state='readonly')
+        screen = Entry(self.root, font=("Courier New", 24), width=18, borderwidth=0.5, justify=RIGHT, state='normal')
         screen.grid(row=0, column=0, columnspan=4, padx=1, pady=1)
         return screen
         
