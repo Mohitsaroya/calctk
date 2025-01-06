@@ -26,9 +26,3 @@ class Operations(Comparable):
     
     def __pow__(self, other):
         return Operations(self.value ** other.value)
-
-    def __str__(self):
-        return str(self.value)
-    
-    def __repr__(self):
-        return str(self.value)
