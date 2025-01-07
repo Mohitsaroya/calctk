@@ -1,5 +1,4 @@
 from tkinter import *
-from operations import Operations
 
 class Calculatortk():
     def __init__(self, root):
@@ -30,6 +29,9 @@ class Calculatortk():
     
     
     def on_button_click(self, text):
+        
+        input = ''
+        
         if text == 'C':
             self.screen.config(state=NORMAL)
             self.screen.delete(0, END)
@@ -37,24 +39,56 @@ class Calculatortk():
         if text in ['+', '-', '*', '/']:
             self.screen.config(state=NORMAL)
             self.operate(text)
+            input += text
         elif text == '=':
-            pass
+            self.evaluate(input)
         else:
             self.screen.config(state=NORMAL)
             self.screen.insert(END, text)
+            input += text
+            
+    def slicing(self, string):
+        
+        numbers = []
+        operators = []
+        temp = ''
+        
+        for i in string:
+            if i.isdigit() or i == '.':
+                temp += i
+            else:
+                if temp:
+                    numbers.append(float(temp))
+                    temp = ''
+                operators.append(i)
+        if temp:
+            numbers.append(float(temp))
+        
+        return numbers, operators
+                    
+            
     
-    def operate(self, operator):
-        if operator == '+':
-            pass
+    def evaluate(self, expression):
+        numbers, operators = self.slicing(expression)
+        return self.operate(numbers, operators)
+    
+    def operate(self, number, operator):
         
-        if operator == '-':
-            pass
+        i = 0
+        while i < len(operator):
+            if operator[i] == '+':
+                pass
+            
+            if operator == '-':
+                pass
         
-        if operator == '*':
-            pass
-        
-        if operator == '/':
-            pass
+        i = 0
+        while i < len(operator):
+            if operator == '*':
+                pass
+            
+            if operator == '/':
+                pass
     
 root = Tk()
 app = Calculatortk(root)
