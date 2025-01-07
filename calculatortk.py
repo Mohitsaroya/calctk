@@ -76,7 +76,7 @@ class Calculatortk():
         while i < len(operator):
             if operator[i] == '/':
                 if number[i+1] == 0:
-                    return "Error: Division by zero"
+                    return "Error:0 Division"
                 result = number[i] / number[i+1]
                 number[i:i+2] = [result]
                 operator.pop(i)
