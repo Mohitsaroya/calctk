@@ -9,6 +9,7 @@ class Calculatortk():
         
         self.screen = self.display_screen()
         self.buttons = self.buttons_on_display()
+        self.input = ''  
         
     def display_screen(self):
         screen = Entry(self.root, font=("Courier New", 24), width=18, borderwidth=0.5, justify=RIGHT, state='normal')
@@ -27,25 +28,24 @@ class Calculatortk():
             button = Button(self.root, text=text, padx=12, pady=14, font=("Courier", 16), width=4, height=2, command=lambda t=text: self.on_button_click(t))
             button.grid(row=row, column=col, padx=1, pady=4)
     
-    
     def on_button_click(self, text):
-        
-        input = ''
         
         if text == 'C':
             self.screen.config(state=NORMAL)
             self.screen.delete(0, END)
+            self.input = ''  
         
-        if text in ['+', '-', '*', '/']:
-            self.screen.config(state=NORMAL)
-            self.operate(text)
-            input += text
         elif text == '=':
-            self.evaluate(input)
+            self.screen.config(state=NORMAL)
+            self.screen.delete(0, END)
+            result = self.evaluate(self.input)
+            self.input = ''  
+            self.screen.insert(END, result)
         else:
             self.screen.config(state=NORMAL)
             self.screen.insert(END, text)
-            input += text
+            self.input += text  
+
             
     def slicing(self, string):
         
@@ -65,8 +65,6 @@ class Calculatortk():
             numbers.append(float(temp))
         
         return numbers, operators
-                    
-            
     
     def evaluate(self, expression):
         numbers, operators = self.slicing(expression)
@@ -76,19 +74,31 @@ class Calculatortk():
         
         i = 0
         while i < len(operator):
-            if operator[i] == '+':
-                pass
-            
-            if operator == '-':
-                pass
+            if operator[i] == '/':
+                if number[i+1] == 0:
+                    return "Error: Division by zero"
+                result = number[i] / number[i+1]
+                number[i:i+2] = [result]
+                operator.pop(i)
+            elif operator[i] == '*':
+                result = number[i] * number[i+1]
+                number[i:i+2] = [result]
+                operator.pop(i)
+            else:
+                i += 1
         
         i = 0
         while i < len(operator):
-            if operator == '*':
-                pass
-            
-            if operator == '/':
-                pass
+            if operator[i] == '+':
+                result = number[i] + number[i+1]
+                number[i:i+2] = [result]
+                operator.pop(i) 
+            elif operator[i] == '-':
+                result = number[i] - number[i+1]
+                number[i:i+2] = [result]
+                operator.pop(i)
+        
+        return number[0]
     
 root = Tk()
 app = Calculatortk(root)
