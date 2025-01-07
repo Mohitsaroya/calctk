@@ -18,7 +18,8 @@ class Calculatortk():
         self.input = ''  
         
     def display_screen(self):
-        """displays the screen of the calculator. This is where the user sees the input and output.
+        """
+        Displays the screen of the calculator. This is where the user sees the input and output.
 
         Returns:
             The display screen of the calculator.
@@ -29,7 +30,7 @@ class Calculatortk():
         
     def buttons_on_display(self):
         """
-        displays the buttons on the calculator. The buttons are arranged in a 4x4 grid.
+        Displays the buttons on the calculator. The buttons are arranged in a 4x4 grid.
         
         Returns:
             The buttons on the calculator.
