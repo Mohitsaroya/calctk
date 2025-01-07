@@ -2,6 +2,12 @@ from tkinter import *
 
 class Calculatortk():
     def __init__(self, root):
+        """
+        This is the constructor of the class. It initializes the root window and the screen of the calculator
+
+        Args:
+            root (Tk): The root window of the Tkinter application.
+        """
         self.root = root
         self.root.title("Calculator")
         self.root.geometry("350x430")
