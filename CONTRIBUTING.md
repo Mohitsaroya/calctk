@@ -1,0 +1,1 @@
+You may add features to your liking. I think the code is simple enough to implement more to it with slight adjustments to the screen size (it is to not resize as I wanted it to feel like the Windows calculator app).
