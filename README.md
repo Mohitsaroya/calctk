@@ -8,4 +8,4 @@ This code shows the basic use of the Tkinter library in the Python language. It 
 
 ## How to run
 
-Save the code in any directory on your computer and then run it. Pretty simple.
+Save the code in any directory on your computer and then run the file titled "calculatortk.py".
