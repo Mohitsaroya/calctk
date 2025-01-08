@@ -16,6 +16,8 @@ class Calculatortk():
         self.screen = self.display_screen()
         self.buttons = self.buttons_on_display()
         self.input = ''  
+        self.stack = Stack()
+        self.toolbar = Toolbar(self)
         
     def display_screen(self):
         """
@@ -61,8 +63,10 @@ class Calculatortk():
             self.screen.config(state=NORMAL)
             self.screen.delete(0, END)
             result = self.evaluate(self.input)
+            self.save_history()
             self.input = ''  
             self.screen.insert(END, result)
+            
         
         else:
             self.screen.config(state=NORMAL)
@@ -154,10 +158,29 @@ class Calculatortk():
         numbers, operators = self.slicing(expression)
         result = self.operate(numbers, operators)
         return result
+    
+    def save_history(self):
+        self.stack.push(f'{self.input} = {self.evaluate(self.input)}')
+    
+    def display_history(self):
+        history = self.stack.items()
+        history_window = Toplevel(self.root)
+        history_window.title("History")
+        history_window.geometry("300x400")
+        
+        history_text = Text(history_window, wrap=WORD)
+        history_text.pack(expand=True, fill=BOTH)
+        
+        for item in history:
+            history_text.insert(END, item + '\n')
+        
+        history_text.config(state=DISABLED)
+        
 
 class Toolbar(Frame):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super().__init__(parent.root)
+        self.parent = parent
         self.initUI()
     
     def initUI(self):
@@ -165,12 +188,9 @@ class Toolbar(Frame):
         self.master.config(menu=menubar)
         fileMenu = Menu(menubar)
         
-        fileMenu.add_cascade(label='hist', underline=0, command=self.display_history)
+        fileMenu.add_command(label='History', underline=0, command=self.parent.display_history)
         fileMenu.add_command(label="Exit", underline=0, command=self.onExit)
         menubar.add_cascade(label="Options", underline=0, menu=fileMenu)
-    
-    def display_history(self):
-        pass
     
     def onExit(self):
         self.quit()
@@ -188,6 +208,9 @@ class Stack():
     
     def is_empty(self):
         return len(self.stack) == 0
+    
+    def items(self):
+        return self.stack
 
 
 if __name__ == '__main__':
