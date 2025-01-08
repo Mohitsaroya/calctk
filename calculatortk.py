@@ -1,6 +1,13 @@
 from tkinter import *
 
 class Calculatortk():
+    """
+    This class creates a calculator using Tkinter. The calculator has a screen and buttons.
+    The user can input numbers and operators using the buttons.
+    The calculator can perform basic arithmetic operations such as addition, subtraction, multiplication, and division.
+    The calculator also has a history feature that displays the history of the calculations. The history is saved in a stack data structure.
+    The calculator has a toolbar that allows the user to view the history and exit the application.
+    """
     def __init__(self, root):
         """
         This is the constructor of the class. It initializes the root window and the screen of the calculator
@@ -65,6 +72,8 @@ class Calculatortk():
             result = self.evaluate(self.input)
             self.save_history()
             self.input = ''  
+            if result.is_integer():
+                result = int(result)
             self.screen.insert(END, result)
             
         
@@ -160,9 +169,19 @@ class Calculatortk():
         return result
     
     def save_history(self):
+        """
+        Saves the history of the calculations onto a stack.
+        
+        Returns: None
+        """
         self.stack.push(f'{self.input} = {self.evaluate(self.input)}')
     
     def display_history(self):
+        """
+        Displays the history of the calculations onto a new window.
+        
+        Returns: None
+        """
         history = self.stack.items()
         history_window = Toplevel(self.root)
         history_window.title("History")
@@ -179,11 +198,20 @@ class Calculatortk():
 
 class Toolbar(Frame):
     def __init__(self, parent):
+        """
+        This is the constructor of the class. It initializes the toolbar of the calculator.
+        
+        Args:
+            parent (Calculatortk): The parent class of the toolbar.
+        """
         super().__init__(parent.root)
         self.parent = parent
         self.initUI()
     
     def initUI(self):
+        """
+        Initializes the toolbar of the calculator.
+        """
         menubar = Menu(self.master)
         self.master.config(menu=menubar)
         fileMenu = Menu(menubar)
@@ -193,9 +221,15 @@ class Toolbar(Frame):
         menubar.add_cascade(label="Options", underline=0, menu=fileMenu)
     
     def onExit(self):
+        """
+        Exits the application.
+        """
         self.quit()
 
 class Stack():
+    """
+    This class creates a stack data structure. The stack is used to store the history of the calculations.
+    """
     def __init__(self):
         self.stack = []
     
