@@ -155,6 +155,41 @@ class Calculatortk():
         result = self.operate(numbers, operators)
         return result
 
+class Toolbar(Frame):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+    
+    def initUI(self):
+        menubar = Menu(self.master)
+        self.master.config(menu=menubar)
+        fileMenu = Menu(menubar)
+        
+        fileMenu.add_cascade(label='hist', underline=0, command=self.display_history)
+        fileMenu.add_command(label="Exit", underline=0, command=self.onExit)
+        menubar.add_cascade(label="Options", underline=0, menu=fileMenu)
+    
+    def display_history(self):
+        pass
+    
+    def onExit(self):
+        self.quit()
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+    
+    def push(self, item):
+        self.stack.append(item)
+    
+    def pop(self):
+        if not self.is_empty():
+            return self.stack.pop()
+    
+    def is_empty(self):
+        return len(self.stack) == 0
+
+
 if __name__ == '__main__':
     root = Tk()
     app = Calculatortk(root)
