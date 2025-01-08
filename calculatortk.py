@@ -51,7 +51,8 @@ class Calculatortk():
             ('0', 4, 0), ('C', 4, 1), ('=', 4, 2), ('+', 4, 3),
         ]
         for (text, row, col) in buttons:
-            button = Button(self.root, text=text, padx=12, pady=14, font=("Courier", 16), width=4, height=2, command=lambda t=text: self.on_button_click(t))
+            button = Button(self.root, text=text, padx=12, pady=14, font=("Courier", 16),
+                            width=4, height=2, command=lambda t=text: self.on_button_click(t))
             button.grid(row=row, column=col, padx=1, pady=4)
     
     def on_button_click(self, text):
@@ -76,13 +77,11 @@ class Calculatortk():
                 result = int(result)
             self.screen.insert(END, result)
             
-        
         else:
             self.screen.config(state=NORMAL)
             self.screen.insert(END, text)
             self.input += text  
 
-            
     def slicing(self, string):
         """
         Slices the string into numbers and operators.
@@ -231,19 +230,46 @@ class Stack():
     This class creates a stack data structure. The stack is used to store the history of the calculations.
     """
     def __init__(self):
+        """
+        This is the constructor of the class. It initializes the stack.
+        """
         self.stack = []
     
     def push(self, item):
+        """
+        Pushes an item onto the stack.
+
+        Args:
+            item (string): The item to be pushed onto the stack.
+        """
         self.stack.append(item)
     
     def pop(self):
+        """
+        Pops an item from the stack.
+
+        Returns:
+            string : The item popped from the stack.
+        """
         if not self.is_empty():
             return self.stack.pop()
     
     def is_empty(self):
+        """
+        Checks if the stack is empty.
+        
+        Returns:
+            Bool : True if the stack is empty, False otherwise.
+        """
         return len(self.stack) == 0
     
     def items(self):
+        """
+        Returns the items in the stack.
+
+        Returns:
+            list : The items in the stack.
+        """
         return self.stack
 
 
