@@ -154,7 +154,8 @@ class Calculatortk():
         numbers, operators = self.slicing(expression)
         result = self.operate(numbers, operators)
         return result
-    
-root = Tk()
-app = Calculatortk(root)
-root.mainloop()
+
+if __name__ == '__main__':
+    root = Tk()
+    app = Calculatortk(root)
+    root.mainloop()
