@@ -74,9 +74,12 @@ class Calculatortk():
             self.screen.config(state=NORMAL)
             self.screen.delete(0, END)
             result = self.evaluate(self.input)
+            
             if result.is_integer():
                 result = int(result)
-            self.save_history()
+                self.stack.push(f'{self.input} = {result}')
+            else:
+                self.stack.push(f'{self.input} = {result}')
             self.screen.insert(END, result)
             self.input = str(result)  
 
@@ -101,18 +104,19 @@ class Calculatortk():
         numbers = []
         operators = []
         temp = ''
-        
-        for i in string:
-            if i.isdigit() or i == '.':
-                temp += i
+        for index, char in enumerate(string):
+            if char.isdigit() or char == '.':
+                temp += char
+            elif char == '-' and (index == 0 or string[index - 1] in "+-*/("):  
+                temp += char
             else:
                 if temp:
                     numbers.append(float(temp))
                     temp = ''
-                operators.append(i)
+                operators.append(char)
         if temp:
             numbers.append(float(temp))
-        
+
         return numbers, operators
     
     def operate(self, numbers, operators):
@@ -167,14 +171,6 @@ class Calculatortk():
         numbers, operators = self.slicing(expression)
         result = self.operate(numbers, operators)
         return result
-    
-    def save_history(self):
-        """
-        Saves the history of the calculations onto a stack.
-        
-        Returns: None
-        """
-        self.stack.push(f'{self.input} = {self.evaluate(self.input)}')
     
     def display_history(self):
         """
