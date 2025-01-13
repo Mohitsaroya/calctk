@@ -68,7 +68,7 @@ class Calculatortk():
         if text == 'C':
             self.screen.config(state=NORMAL)
             self.screen.delete(0, END)
-            self.input = ''  
+            self.input = []
 
         elif text == '=':
             self.screen.config(state=NORMAL)
@@ -119,9 +119,35 @@ class Calculatortk():
 
         return numbers, operators
     
+    def operation(self, number1, number2, operator):
+        """
+        Perform a single arithmetic operation.
+
+        Args:
+            number1 (float): The first number.
+            number2 (float): The second number.
+            operator (str): The operator ('+', '-', '*', '/').
+
+        Returns:
+            float: The result of the operation.
+            str: Error message if division by zero occurs.
+        """
+        if operator == '/':
+            if number2 == 0:
+                return "Error: Division by 0"
+            return number1 / number2
+        elif operator == '*':
+            return number1 * number2
+        elif operator == '+':
+            return number1 + number2
+        elif operator == '-':
+            return number1 - number2
+        else:
+            return "Error: Invalid operator"
+
     def operate(self, numbers, operators):
         """
-        This method performs the operations on the numbers.
+        Perform a series of operations on numbers based on the operators.
 
         Args:
             numbers (list): List of numbers to be operated on.
@@ -132,32 +158,12 @@ class Calculatortk():
         """
         i = 0
         while i < len(operators):
-            if operators[i] == '/':
-                if numbers[i + 1] == 0:
-                    return "Error: Division by 0"
-                result = numbers[i] / numbers[i + 1]
-                numbers[i:i + 2] = [result]
-                operators.pop(i)
-            elif operators[i] == '*':
-                result = numbers[i] * numbers[i + 1]
-                numbers[i:i + 2] = [result]
-                operators.pop(i)
-            else:
-                i += 1
-
-        i = 0
-        while i < len(operators):
-            if operators[i] == '+':
-                result = numbers[i] + numbers[i + 1]
-                numbers[i:i + 2] = [result]
-                operators.pop(i)
-            elif operators[i] == '-':
-                result = numbers[i] - numbers[i + 1]
-                numbers[i:i + 2] = [result]
-                operators.pop(i)
-
+            result = self.operation(numbers[i], numbers[i + 1], operators[i])
+            numbers[i:i + 2] = [result]  
+            operators.pop(i) 
         return numbers[0]
-    
+
+
     def evaluate(self, expression):
         """
         Evaluates the expression.
