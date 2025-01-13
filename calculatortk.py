@@ -143,7 +143,7 @@ class Calculatortk():
         elif operator == '-':
             return number1 - number2
         else:
-            return "Error: Invalid operator"
+            return "Error: Invalid input"
 
     def operate(self, numbers, operators):
         """
